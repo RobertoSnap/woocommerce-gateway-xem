@@ -137,7 +137,8 @@ class Xem_Ajax {
 		$message_amount_match = false;
 		$amount_match = false;
 		$matched_transaction = false;
-		$decimal_amount_precision = 0;
+		//xem amount roundprecision changed 5 from 0.
+		$decimal_amount_precision = 5;
 		foreach ($transactions as $key => $t){
 			$message = self::hex2str($t->transaction->message->payload);
 			//Check for matching message
@@ -153,15 +154,15 @@ class Xem_Ajax {
 				}
 			}
 			//if we also do only match on amount we try it here, but then the amount must be axactly.
-			if(!$message_amount_match && $match_amount){
-                $xem_amount_lock_check = round($xem_amount_locked / 1000000,$decimal_amount_precision);
-                $xem_amount_transaction_check = round($t->transaction->amount / 1000000,$decimal_amount_precision);
-				if( $xem_amount_lock_check ===  $xem_amount_transaction_check ){
-					$amount_match = true;
-					$matched_transaction = $t;
-					break;
-				}
-			}
+//			if(!$message_amount_match && $match_amount){
+//                $xem_amount_lock_check = round($xem_amount_locked / 1000000,$decimal_amount_precision);
+//                $xem_amount_transaction_check = round($t->transaction->amount / 1000000,$decimal_amount_precision);
+//				if( $xem_amount_lock_check ===  $xem_amount_transaction_check ){
+//					$amount_match = true;
+//					$matched_transaction = $t;
+//					break;
+//				}
+//			}
 
 		}
 
